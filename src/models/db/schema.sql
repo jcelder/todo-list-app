@@ -1,7 +1,7 @@
 CREATE TABLE tasks (
   task_id SERIAL PRIMARY KEY,
   task_content TEXT NOT NULL,
-  task_time TIME(0) NOT NULL,
+  task_time TEXT NOT NULL,
   task_complete BOOLEAN NOT NULL DEFAULT false
 );
 
