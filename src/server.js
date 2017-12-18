@@ -1,6 +1,7 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 import session from 'express-session'
+import router from './server/routes/index'
 
 const app = express()
 
@@ -20,6 +21,8 @@ app.set('views', `${__dirname}/views`)
 app.use(express.static('public'))
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(session(sess))
+
+app.use('/', router)
 
 const port = process.env.PORT || 3000
 app.listen(port, () => {
