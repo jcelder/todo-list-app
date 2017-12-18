@@ -9,6 +9,11 @@ const query = require('./tasksQueries')
 const addTask = task => db.one(query.addTask, [task.content, task.time])
 
 /**
+ * Gets all tasks
+ * @returns {Promise} Promise object resolves to an array of task objects
+ */
+const getAllTasks = () => db.any(query.getAllTasks)
+/**
  * Checks complete status of a task by task id
  * @param {number} taskId
  * @returns {Promise} Promise object resolves to the task_complete status
@@ -32,6 +37,7 @@ const toggleTask = (task) => {
 
 module.exports = {
   addTask,
+  getAllTasks,
   getTaskStatusByTaskId,
   toggleTask,
 }

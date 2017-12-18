@@ -7,6 +7,10 @@ VALUES
 RETURNING task_id
 `
 
+const getAllTasks = `
+SELECT * FROM tasks
+`
+
 const getTaskStatus = `
 SELECT task_complete
   FROM tasks
@@ -21,6 +25,7 @@ WHERE task_id = $2
 
 module.exports = {
   addTask,
+  getAllTasks,
   getTaskStatus,
   toggleTask,
 }
