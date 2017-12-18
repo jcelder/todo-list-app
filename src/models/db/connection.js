@@ -4,4 +4,4 @@ const connection = process.env.NODE_ENV === 'test' ? 'postgres:///todolist_test'
 
 const db = pgp(connection)
 
-module.exports = { db }
+module.exports = db
