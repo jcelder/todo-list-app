@@ -4,9 +4,13 @@
   "description": "",
   "main": "src/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "export NODE_ENV='test' && mocha --recursive --exit",
     "start": "babel-node src/server.js --presets env",
-    "dev:start": "nodemon src/server.js --exec babel-node --presets env"
+    "dev:start": "nodemon src/server.js --exec babel-node --presets env",
+    "db:createdb": "createdb todolist && createdb todolist_test",
+    "db:dropdb": "dropdb todolist && dropdb todolist_test",
+    "db:loadschema": "psql todolist < src/models/db/schema.sql && psql todolist_test < src/models/db/schema.sql",
+    "db:reset": "npm run db:dropdb && npm run db:createdb && npm run db:loadschema"
   },
   "repository": {
     "type": "git",
