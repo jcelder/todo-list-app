@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/jcelder/todo-list-app#readme",
   "dependencies": {
+    "arrow-mocha": "^1.0.1",
     "bcrypt": "^1.0.3",
     "body-parser": "^1.18.2",
     "connect-pg-simple": "^4.2.1",
