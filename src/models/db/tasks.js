@@ -9,14 +9,22 @@ const query = require('./tasksQueries')
 const addTask = task => db.one(query.addTask, [task.content, task.time])
 
 /**
+ * Returns the task object with a matching task_id
+ * @param {number} taskId
+ * @returns {Promise} Promise object resolves to a task object
+ */
+const getTaskByTaskId = taskId => db.one(query.getTaskById, taskId)
+
+/**
  * Gets all tasks
  * @returns {Promise} Promise object resolves to an array of task objects
  */
 const getAllTasks = () => db.any(query.getAllTasks)
+
 /**
  * Checks complete status of a task by task id
  * @param {number} taskId
- * @returns {Promise} Promise object resolves to the task_complete status
+ * @returns {Promise} Promise object resolves to an object containing task_complete status
  */
 const getTaskStatusByTaskId = taskId => db.one(query.getTaskStatus, taskId)
 
@@ -26,17 +34,17 @@ const getTaskStatusByTaskId = taskId => db.one(query.getTaskStatus, taskId)
  */
 const toggleTask = (task) => {
   return getTaskStatusByTaskId(task.taskId)
-    .then((taskStatus) => {
-      if (task.displayedStatus === taskStatus[0]) {
-        task.displayedStatus = !task.displayedStatus
-        return db.one(query.toggleTask, [task.displayedStatus, task.taskId])
+    .then((returnedObject) => {
+      if (task.status === returnedObject.task_complete) {
+        return db.one(query.toggleTask, [!task.status, task.taskId])
       }
-      // Error Goes Here
+      throw new Error('Database Mismatch Error')
     })
 }
 
 module.exports = {
   addTask,
+  getTaskByTaskId,
   getAllTasks,
   getTaskStatusByTaskId,
   toggleTask,
