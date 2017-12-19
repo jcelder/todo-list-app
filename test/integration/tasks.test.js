@@ -54,6 +54,31 @@ describe('Tasks DB Functions Integration Tests', () => {
         })
     })
   })
+  describe('updateTask()', () => {
+    const editedTask = {
+      task_id: 1,
+      task_content: 'I sure hope this works',
+      task_time: '18:15',
+      task_complete: false,
+    }
+    beforeEach(() => db.updateTask(editedTask))
+    it('should update the matching row in the "tasks" table', () => {
+      return db.getTask(editedTask.task_id)
+        .then((returnedTask) => {
+          expect(returnedTask).to.deep.equal(editedTask)
+        })
+    })
+  })
+  describe('deleteTask()', () => {
+    const taskId = 2
+    beforeEach(() => db.deleteTask(taskId))
+    it('should delete the matching row in the "tasks" table', () => {
+      return db.getTask(taskId)
+        .then((returnedTask) => {
+          expect(returnedTask).to.equal(null)
+        })
+    })
+  })
   describe('getTaskStatus()', () => {
     const taskId = 2
     it('should return the task complete status', () => {
