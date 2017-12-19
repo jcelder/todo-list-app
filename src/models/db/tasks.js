@@ -9,11 +9,24 @@ const query = require('./tasksQueries')
 const addTask = task => db.one(query.addTask, [task.content, task.time])
 
 /**
+ * Edits a task
+ * @param {Object} task
+ * @returns {Promise} Promise object resolves to a successful db update
+ */
+const editTaskById = task => db.none(query.editTaskById, [task.task_content, task.task_time, task.task_id])
+
+/**
+ * Deletes a task
+ * @param {number} taskId
+ */
+const deleteTaskById = taskId => db.none(query.deleteTaskById, taskId)
+
+/**
  * Returns the task object with a matching task_id
  * @param {number} taskId
  * @returns {Promise} Promise object resolves to a task object
  */
-const getTaskByTaskId = taskId => db.one(query.getTaskById, taskId)
+const getTaskByTaskId = taskId => db.oneOrNone(query.getTaskById, taskId)
 
 /**
  * Gets all tasks
@@ -44,6 +57,8 @@ const toggleTask = (task) => {
 
 module.exports = {
   addTask,
+  editTaskById,
+  deleteTaskById,
   getTaskByTaskId,
   getAllTasks,
   getTaskStatusByTaskId,

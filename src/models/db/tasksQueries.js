@@ -7,6 +7,16 @@ VALUES
 RETURNING task_id
 `
 
+const editTaskById = `
+UPDATE tasks
+  SET task_content = $1, task_time = $2
+WHERE task_id = $3
+`
+
+const deleteTaskById = `
+DELETE FROM tasks WHERE task_id = $1
+`
+
 const getTaskById = `
 SELECT * FROM tasks WHERE task_id = $1
 `
@@ -30,6 +40,8 @@ RETURNING *
 
 module.exports = {
   addTask,
+  editTaskById,
+  deleteTaskById,
   getTaskById,
   getAllTasks,
   getTaskStatus,
