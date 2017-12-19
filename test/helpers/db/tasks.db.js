@@ -1,6 +1,6 @@
 const db = require('../../../src/models/db/connection')
 
-const truncateTasksQuery = 'TRUNCATE TABLE tasks RESTART IDENTITY'
+const truncateTasksQuery = 'TRUNCATE TABLE tasks RESTART IDENTITY CASCADE'
 const seedTasksQuery = `
 INSERT INTO tasks 
   (task_content, task_time, task_complete)
@@ -14,6 +14,6 @@ const truncateTasks = () => db.none(truncateTasksQuery)
 // Seed 'tasks' table with testable data
 const seedTasks = () => db.none(seedTasksQuery)
 // Reset the 'tasks' table in the database
-const resetTasks = () => truncateTasks.then(() => seedTasks())
+const resetTasks = () => truncateTasks().then(() => seedTasks())
 
 module.exports = { resetTasks }
