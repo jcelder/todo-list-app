@@ -6,10 +6,27 @@ mixin addTaskModal
     .add-modal-content
       span(class="close" id='add-task-modal-close-btn') &times;
       .mdc-text-field.mdc-text-field--box
-        input(type='text' id='task_content' name='task_content' class='mdc-field__input' placeholder='New Task Goes Here')
+        input(type='text' id='new-task-content' name='task_content' class='mdc-field__input' placeholder='New Task Goes Here')
       .mdc-text-field.mdc-text-field--box
-        input(type='text' id='task_time' name='task_time' class='mdc-field__input' placerholder='Time')
+        input(type='text' id='new-task-time' name='task_time' class='mdc-field__input' placerholder='Time')
       button(class='mdc-button mdc-button--raised' id='add-task-modal-submit-btn') Add Task
+
+mixin deleteTaskModal
+  .delete-modal(id='delete-task-modal')
+    .delete-modal-content
+      span(class='close' id='delete-task-modal-close-btn') &times;
+      p Are you sure you want to delete the task?
+      button(class='mdc-button mdc-button--raised' id='delete-task-modal-confirm-btn') Yes, Delete This Task
+
+mixin editTaskModal
+  .edit-modal(id='edit-task-modal')
+    .edit-modal-content
+      span(class='close' id='edit-task-modal-close-btn') &times;
+      .mdc-text-field.mdc-text-field--box
+        input(type='text' id='edit-task-content' name='task_content' class='mdc-field__input')
+      .mdc-text-field.mdc-text-field--box
+        input(type='text' id='edit-task-time' name='task_time' class='mdc-field__input')
+      button(class='mdc-button mdc-button--raised' id='edit-task-modal-submit-btn') Edit Task
 
 mixin mdcSwitch
   .mdc-switch.list-switch
@@ -21,9 +38,10 @@ mixin listElement(task)
   li(class='mdc-list-item mdc-elevation--z4 task-item' data-internal-id=task.task_id)
     +mdcSwitch
     span(class='list-content')= task.task_content
+    span(class='list-time')= task.task_time
     span(class='list-btn-container')
-      button(class="mdc-button mdc-button--raised") Edit
-      button(class="mdc-button mdc-button--raised") Delete
+      button(class="mdc-button mdc-button--raised edit-task-btn") Edit
+      button(class="mdc-button mdc-button--raised delete-task-btn") Delete
 
 block header
   header(class='mdc-toolbar mdc-toolbar--fixed')
@@ -43,6 +61,7 @@ block content
 
 block modals
   +addTaskModal
-
+  +deleteTaskModal
+  +editTaskModal
 block scripts
   script(src='script.js')
