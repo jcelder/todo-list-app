@@ -1,0 +1,48 @@
+//- tasks.pug
+extends partials/layout.pug
+
+mixin addTaskModal
+  .add-modal(id="add-task-modal")
+    .add-modal-content
+      span(class="close" id='add-task-modal-close-btn') &times;
+      .mdc-text-field.mdc-text-field--box
+        input(type='text' id='task_content' name='task_content' class='mdc-field__input' placeholder='New Task Goes Here')
+      .mdc-text-field.mdc-text-field--box
+        input(type='text' id='task_time' name='task_time' class='mdc-field__input' placerholder='Time')
+      button(class='mdc-button mdc-button--raised' id='add-task-modal-submit-btn') Add Task
+
+mixin mdcSwitch
+  .mdc-switch.list-switch
+    input(type='checkbox' class='mdc-switch__native-control')
+    .mdc-switch__background
+      .mdc-switch__knob
+
+mixin listElement(task)
+  li(class='mdc-list-item mdc-elevation--z4 task-item' data-internal-id=task.task_id)
+    +mdcSwitch
+    span(class='list-content')= task.task_content
+    span(class='list-btn-container')
+      button(class="mdc-button mdc-button--raised") Edit
+      button(class="mdc-button mdc-button--raised") Delete
+
+block header
+  header(class='mdc-toolbar mdc-toolbar--fixed')
+    section(class='mdc-toolbar__section mdc-toolbar__section--align-center')
+      span(class='mdc-toolbar__title') Todo List
+
+block content
+  .mdc-layout-grid.mdc-toolbar-fixed-adjust
+    .mdc-layout-grid__cell
+      .mdc-layout-grid_inner.list-container
+        ul(class='mdc-list')
+          for task in tasksArray
+            .list-item-container
+              +listElement(task)
+    button(class='mdc-fab material-icons' id='btn-add-task' aria-label='Add Task')
+      span(class='mdc-fab__icon') add
+
+block modals
+  +addTaskModal
+
+block scripts
+  script(src='script.js')
