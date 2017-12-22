@@ -8,15 +8,15 @@ mixin addTaskModal
       .mdc-text-field.mdc-text-field--box
         input(type='text' id='new-task-content' name='task_content' class='mdc-field__input' placeholder='New Task Goes Here')
       .mdc-text-field.mdc-text-field--box
-        input(type='text' id='new-task-time' name='task_time' class='mdc-field__input' placerholder='Time')
-      button(class='mdc-button mdc-button--raised' id='add-task-modal-submit-btn') Add Task
+        input(type='text' id='new-task-time' name='task_time' class='mdc-field__input' placeholder='Time')
+      button(class='mdc-button mdc-button--raised modal-btn' id='add-task-modal-submit-btn') Add Task
 
 mixin deleteTaskModal
   .delete-modal(id='delete-task-modal')
     .delete-modal-content
       span(class='close' id='delete-task-modal-close-btn') &times;
       p Are you sure you want to delete the task?
-      button(class='mdc-button mdc-button--raised' id='delete-task-modal-confirm-btn') Yes, Delete This Task
+      button(class='mdc-button mdc-button--raised modal-btn' id='delete-task-modal-confirm-btn') Yes, Delete This Task
 
 mixin editTaskModal
   .edit-modal(id='edit-task-modal')
@@ -26,7 +26,7 @@ mixin editTaskModal
         input(type='text' id='edit-task-content' name='task_content' class='mdc-field__input')
       .mdc-text-field.mdc-text-field--box
         input(type='text' id='edit-task-time' name='task_time' class='mdc-field__input')
-      button(class='mdc-button mdc-button--raised' id='edit-task-modal-submit-btn') Edit Task
+      button(class='mdc-button mdc-button--raised modal-btn' id='edit-task-modal-submit-btn') Edit Task
 
 mixin mdcSwitch
   .mdc-switch.list-switch
@@ -52,10 +52,9 @@ block content
   .mdc-layout-grid.mdc-toolbar-fixed-adjust
     .mdc-layout-grid__cell
       .mdc-layout-grid_inner.list-container
-        ul(class='mdc-list')
+        ul(class='mdc-list' id='task-list')
           for task in tasksArray
-            .list-item-container
-              +listElement(task)
+            +listElement(task)
     button(class='mdc-fab material-icons' id='btn-add-task' aria-label='Add Task')
       span(class='mdc-fab__icon') add
 
@@ -64,4 +63,5 @@ block modals
   +deleteTaskModal
   +editTaskModal
 block scripts
+  script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
   script(src='script.js')
