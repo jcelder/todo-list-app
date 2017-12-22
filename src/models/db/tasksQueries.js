@@ -22,7 +22,7 @@ SELECT * FROM tasks WHERE task_id = $1
 `
 
 const getAllTasks = `
-SELECT * FROM tasks
+SELECT * FROM tasks ORDER BY task_id
 `
 
 const getTaskStatus = `
